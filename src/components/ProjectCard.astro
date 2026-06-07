@@ -1,0 +1,115 @@
+---
+import type { Project } from '../data/projects';
+import Chip from './Chip.astro';
+
+interface Props {
+  project: Project;
+  index?: number;
+}
+const { project, index = 0 } = Astro.props;
+const delay = (index % 2) * 80;
+---
+
+<article
+  class="project-card"
+  data-tilt
+  style={`display:flex;flex-direction:column;background:var(--bg-1);border:1px solid var(--border);border-radius:1rem;overflow:hidden;transition:border-color 0.3s,box-shadow 0.3s,transform 0.3s;animation-delay:${delay}ms;`}
+>
+  <!-- Gradient artwork header -->
+  <div
+    style={`position:relative;height:140px;background:${project.gradient};display:flex;align-items:center;justify-content:space-between;padding:1.5rem;overflow:hidden;`}
+  >
+    <!-- Large decorative icon -->
+    <span
+      aria-hidden="true"
+      style="font-family:var(--font-mono,monospace);font-size:3.5rem;color:rgba(255,255,255,0.04);line-height:1;user-select:none;font-weight:700;position:absolute;right:1.25rem;bottom:0.5rem;"
+    >
+      {project.icon}
+    </span>
+
+    <!-- Code badge -->
+    {project.code && (
+      <span style="font-family:var(--font-mono,monospace);font-size:0.65rem;font-weight:600;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;background:rgba(201,162,39,0.08);border:1px solid rgba(201,162,39,0.15);padding:0.25rem 0.625rem;border-radius:0.25rem;">
+        {project.code}
+      </span>
+    )}
+
+    <!-- Category -->
+    <span style="font-family:var(--font-mono,monospace);font-size:0.65rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em;text-transform:uppercase;margin-left:auto;">
+      {project.category}
+    </span>
+  </div>
+
+  <!-- Content -->
+  <div style="padding:1.5rem;display:flex;flex-direction:column;flex:1;gap:1rem;">
+
+    <!-- Title -->
+    <h3 class="card-title" style="font-size:1.125rem;font-weight:700;color:var(--fg);letter-spacing:-0.015em;transition:color 0.2s;">
+      {project.title}
+    </h3>
+
+    <!-- Summary -->
+    <p style="font-size:0.875rem;color:var(--fg-2);line-height:1.65;flex:1;">
+      {project.summary}
+    </p>
+
+    <!-- Divider -->
+    <div style="height:1px;background:var(--border);"></div>
+
+    <!-- Metrics -->
+    {project.metrics && project.metrics.length > 0 && (
+      <div style="display:flex;gap:1.25rem;flex-wrap:wrap;">
+        {project.metrics.map((m) => (
+          <div>
+            <div style="font-family:var(--font-mono,monospace);font-size:1.1rem;font-weight:700;color:var(--accent);" data-metric-value={m.value}>{m.value}</div>
+            <div style="font-size:0.7rem;color:var(--fg-2);margin-top:0.1rem;">{m.label}</div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <!-- Tech stack -->
+    <div style="display:flex;flex-wrap:wrap;gap:0.375rem;">
+      {project.tech.map((t) => <Chip label={t} mono />)}
+    </div>
+
+    <!-- Links row -->
+    <div style="display:flex;align-items:center;gap:1rem;padding-top:0.25rem;">
+      {project.links?.map((link) => {
+        const isFill = link.href === '[[FILL]]';
+        return (
+          <a
+            href={isFill ? '#' : link.href}
+            target={isFill ? undefined : '_blank'}
+            rel={isFill ? undefined : 'noopener noreferrer'}
+            aria-disabled={isFill ? 'true' : undefined}
+            style={`font-size:0.75rem;font-weight:500;font-family:var(--font-mono,monospace);text-decoration:none;transition:color 0.15s,opacity 0.15s;${isFill ? 'color:var(--fg-2);opacity:0.4;pointer-events:none;' : 'color:var(--fg-2);'}`}
+            onmouseover={isFill ? undefined : "this.style.color='var(--accent)'"}
+            onmouseout={isFill ? undefined : "this.style.color='var(--fg-2)'"}
+            aria-label={isFill ? `${link.label} — coming soon` : `${link.label} for ${project.title}`}
+          >
+            {link.label}{isFill ? ' ·' : ' ↗'}
+          </a>
+        );
+      })}
+      <a
+        href={`/projects/${project.slug}`}
+        style="margin-left:auto;font-size:0.75rem;font-weight:600;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:0.375rem;transition:gap 0.2s;"
+        class="detail-link"
+      >
+        Details
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .project-card:hover {
+    border-color: var(--border-acc);
+    box-shadow: 0 0 0 1px var(--border-acc), 0 20px 60px rgba(201,162,39,0.06);
+  }
+
+  .project-card:hover .card-title { color: var(--accent); }
+  .project-card:hover .detail-link { gap: 0.6rem; }
+</style>

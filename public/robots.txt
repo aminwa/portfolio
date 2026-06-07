@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aminwafi.dev/sitemap-index.xml

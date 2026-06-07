@@ -1,0 +1,17 @@
+---
+interface Props {
+  label: string;
+  value: string;
+}
+const { label, value } = Astro.props;
+---
+
+<div
+  style="display:flex;flex-direction:column;align-items:flex-start;padding:1rem 1.25rem;border-radius:0.75rem;background:var(--bg-2);border:1px solid var(--border);"
+>
+  <span
+    data-metric-value={value}
+    style="font-family:var(--font-mono,monospace);font-size:1.5rem;font-weight:700;color:var(--accent);"
+  >{value}</span>
+  <span style="font-size:0.72rem;color:var(--fg-2);margin-top:0.25rem;line-height:1.4;">{label}</span>
+</div>

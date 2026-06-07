@@ -1,0 +1,90 @@
+---
+---
+
+<section id="research" aria-labelledby="research-heading" style="position:relative;padding:var(--spacing-section,8rem) 0;overflow:hidden;background:var(--bg-1);">
+
+  <!-- Background glow -->
+  <div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60%;aspect-ratio:2/1;background:radial-gradient(ellipse,rgba(201,162,39,0.05) 0%,transparent 70%);pointer-events:none;"></div>
+  <!-- Top + bottom rules with gradient -->
+  <div aria-hidden="true" style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--border-acc),transparent);"></div>
+  <div aria-hidden="true" style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--border-acc),transparent);"></div>
+
+  <div style="max-width:var(--max-width-content,1280px);margin:0 auto;padding:0 2rem;">
+    <div data-section-body>
+
+      <!-- Eyebrow -->
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:2rem;">
+        <span style="display:block;width:2rem;height:1px;background:var(--accent);"></span>
+        <span style="font-family:var(--font-mono,monospace);font-size:0.65rem;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;opacity:0.8;">Research · Dissertation 2026</span>
+      </div>
+
+      <!-- Big heading -->
+      <h2
+        id="research-heading"
+        data-scramble
+        data-text="Training LLMs on Web-Scraped Personal Data"
+        style="font-size:clamp(2rem,5vw,4rem);font-weight:700;color:var(--fg);letter-spacing:-0.025em;line-height:1.08;max-width:52rem;margin:0 0 2.5rem;"
+      >
+        Training LLMs on Web-Scraped Personal Data
+      </h2>
+
+      <!-- Two-column layout on desktop -->
+      <div style="display:grid;gap:3rem;" class="research-grid">
+
+        <!-- Body text -->
+        <div style="display:flex;flex-direction:column;gap:1.25rem;color:var(--fg-2);font-size:0.9375rem;line-height:1.75;max-width:var(--max-width-prose,68ch);">
+          <p>Argues GDPR is <em style="color:var(--fg);font-style:normal;">structurally incompatible</em> with frontier-scale LLM training on web-scraped personal data — synthesising empirical ML memorisation research (Carlini et al.), doctrinal EU law, and Charter fundamental-rights theory.</p>
+          <p>Evaluated current AI-governance responses (EDPB Opinion 28/2024, CNIL 2025 guidance, EU AI Act Article 53) against a standard derived from CJEU Charter case law. Predicted the Court of Rome would annul the Italian Garante's €15M fine against OpenAI. It did, six weeks after submission.</p>
+          <p>Proposed a data-trusts governance model grounded in GDPR Article 80(2), specifying three technical primitives: cryptographic dataset provenance, a training-data registry, and a memorisation-audit interface using membership-inference methods.</p>
+        </div>
+
+        <!-- Sidebar stats + tags -->
+        <aside style="display:flex;flex-direction:column;gap:1.5rem;">
+          <!-- Stats -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            {[
+              { n: '28K', label: 'words' },
+              { n: '3', label: 'literatures connected' },
+              { n: '2026', label: 'University of Derby' },
+              { n: '✓', label: 'OpenAI fine annulment predicted (Mar 2026)' },
+            ].map(({ n, label }) => (
+              <div style="padding:1rem;border:1px solid var(--border);border-radius:0.75rem;background:var(--bg-2);">
+                <div style="font-family:var(--font-mono,monospace);font-size:1.25rem;font-weight:700;color:var(--accent);">{n}</div>
+                <div style="font-size:0.72rem;color:var(--fg-2);margin-top:0.25rem;line-height:1.4;">{label}</div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Governance tested -->
+          <div>
+            <p style="font-size:0.7rem;font-family:var(--font-mono,monospace);color:var(--fg-2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;">Governance tested</p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+              {['EDPB Opinion 28/2024', 'CNIL 2025', 'EU AI Act Art. 53', 'GDPR Art. 80(2)', 'Fundamental rights'].map((t) => (
+                <span style="font-size:0.72rem;padding:0.25rem 0.625rem;border:1px solid var(--border-acc);border-radius:9999px;color:var(--accent);font-family:var(--font-mono,monospace);">{t}</span>
+              ))}
+            </div>
+          </div>
+
+          <!-- CTA (disabled until PDF) -->
+          <a
+            href="/amin-wafi-dissertation.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.625rem 1.25rem;border:1px solid var(--border-acc);color:var(--accent);font-size:0.825rem;font-weight:500;border-radius:0.375rem;text-decoration:none;width:fit-content;transition:background 0.2s,color 0.2s;"
+            onmouseover="this.style.background='var(--accent)';this.style.color='var(--bg)'"
+            onmouseout="this.style.background='transparent';this.style.color='var(--accent)'"
+          >
+            Read the dissertation
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (min-width: 1024px) {
+    .research-grid { grid-template-columns: 1fr 340px; }
+  }
+</style>

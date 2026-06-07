@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ResearchBand from '../components/ResearchBand.astro';
+import SkillsGroup from '../components/SkillsGroup.astro';
+import MoreWork from '../components/MoreWork.astro';
+import Contact from '../components/Contact.astro';
+import PageLoader from '../components/PageLoader';
+import CustomCursor from '../components/CustomCursor';
+import Footer from '../components/Footer.astro';
+import { featuredProjects } from '../data/projects';
+---
+
+<BaseLayout>
+  <PageLoader client:only="react" />
+  <CustomCursor client:only="react" />
+  <Nav />
+  <main id="main-content">
+    <Hero />
+
+    <Section id="about" num="01" label="About">
+      <div style="display:grid;gap:3rem;" class="about-grid">
+        <div style="display:flex;flex-direction:column;gap:1.25rem;color:var(--fg-2);line-height:1.75;font-size:0.9375rem;max-width:var(--max-width-prose,68ch);">
+          <p style="margin:0;">
+            Final-year Computer Science student who trains and ships AI systems with a focus on how
+            they behave in deployment. Work spans computer vision, on-device LLM tooling, and
+            full-stack web applications. One principle runs through all of it: the user's data
+            should not leave the user's machine.
+          </p>
+          <p style="margin:0;">
+            My dissertation argues GDPR is structurally incompatible with frontier-scale LLM
+            training on web-scraped personal data — the same thread as my AW Labs privacy tools.
+            Also writes on the intersection of AI systems, security, and privacy law.
+          </p>
+          <div style="padding-top:1rem;border-top:1px solid var(--border);">
+            <p style="margin:0;font-size:0.72rem;font-family:var(--font-mono,monospace);color:var(--fg-2);letter-spacing:0.1em;">
+              BSc (Hons) Computer Science · University of Derby · Expected 2026
+            </p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2rem;">
+          <div>
+            <p style="font-size:0.65rem;font-family:var(--font-mono,monospace);color:var(--fg-2);letter-spacing:0.2em;text-transform:uppercase;margin:0 0 0.75rem;">Core skills</p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+              {['Python', 'PyTorch', 'Computer Vision', 'LLMs', 'Docker', 'C / systems', 'Formal methods', 'GDPR / AI governance'].map((s) => (
+                <span style="display:inline-flex;align-items:center;padding:0.3rem 0.75rem;font-size:0.72rem;border-radius:0.375rem;background:var(--bg-2);border:1px solid var(--border);color:var(--fg-2);font-family:var(--font-mono,monospace);">
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            {[
+              { n: '58', label: 'shell-pilot tests' },
+              { n: '0.924', label: 'mAP50 (X-ray CV)' },
+              { n: '28K', label: 'Dissertation words' },
+              { n: '2026', label: 'Graduating' },
+            ].map(({ n, label }) => (
+              <div style="padding:0.875rem 1rem;border:1px solid var(--border);border-radius:0.75rem;background:var(--bg-1);">
+                <div data-metric-value={n} style="font-family:var(--font-mono,monospace);font-size:1.25rem;font-weight:700;color:var(--accent);">{n}</div>
+                <div style="font-size:0.7rem;color:var(--fg-2);margin-top:0.2rem;line-height:1.4;">{label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Section>
+
+    <Section id="projects" num="02" label="Featured Projects">
+      <div style="display:grid;gap:1.5rem;" class="projects-grid">
+        {featuredProjects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    </Section>
+
+    <ResearchBand />
+
+    <Section id="skills" num="03" label="Skills">
+      <SkillsGroup />
+    </Section>
+
+    <Section id="more" num="04" label="More Work">
+      <MoreWork />
+    </Section>
+
+    <Section id="contact" num="05" label="Contact">
+      <Contact />
+    </Section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  @media (min-width: 1024px) {
+    .about-grid    { grid-template-columns: 1fr 1fr; }
+    .projects-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>

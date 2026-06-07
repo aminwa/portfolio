@@ -1,0 +1,156 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import MetricBadge from '../../components/MetricBadge.astro';
+import { projects, type Project } from '../../data/projects';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return projects
+    .filter((p) => p.featured)
+    .map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
+};
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<BaseLayout
+  title={`${project.title} — Amin Wafi`}
+  description={project.summary}
+>
+  <Nav />
+  <main id="main-content" style="padding-top:3.5rem;">
+
+    <!-- Artwork header -->
+    <div style={`height:clamp(200px,28vw,340px);background:${project.gradient};position:relative;overflow:hidden;display:flex;align-items:flex-end;`}>
+      <!-- Code badge -->
+      {project.code && (
+        <span style="position:absolute;top:2rem;left:2rem;font-family:var(--font-mono,monospace);font-size:0.65rem;color:var(--accent);background:rgba(201,162,39,0.08);border:1px solid rgba(201,162,39,0.2);padding:0.25rem 0.625rem;border-radius:0.25rem;letter-spacing:0.15em;">
+          {project.code}
+        </span>
+      )}
+      <!-- Large decorative icon -->
+      <div aria-hidden="true" style="position:absolute;bottom:-0.5rem;right:2rem;font-size:clamp(6rem,14vw,10rem);color:rgba(255,255,255,0.04);font-family:var(--font-mono,monospace);font-weight:700;line-height:1;user-select:none;pointer-events:none;">
+        {project.icon}
+      </div>
+      <!-- Gradient fade bottom -->
+      <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,var(--bg) 100%);"></div>
+    </div>
+
+    <div style="max-width:var(--max-width-content,1280px);margin:0 auto;padding:0 2rem 8rem;">
+
+      <!-- Back link -->
+      <a
+        href="/#projects"
+        style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:var(--fg-2);text-decoration:none;font-family:var(--font-mono,monospace);margin-bottom:2.5rem;margin-top:1.5rem;transition:color 0.15s;letter-spacing:0.05em;"
+        onmouseover="this.style.color='var(--fg)'"
+        onmouseout="this.style.color='var(--fg-2)'"
+      >
+        ← Back to projects
+      </a>
+
+      <!-- Header -->
+      <header style="margin-bottom:3rem;max-width:52rem;">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap;">
+          <span style="font-size:0.65rem;font-family:var(--font-mono,monospace);color:var(--fg-2);padding:0.2rem 0.5rem;border-radius:0.25rem;background:var(--bg-2);border:1px solid var(--border);">
+            {project.category}
+          </span>
+        </div>
+        <h1 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:var(--fg);margin:0 0 1.25rem;line-height:1.1;letter-spacing:-0.025em;">
+          {project.title}
+        </h1>
+        <p style="font-size:1.0625rem;color:var(--fg-2);line-height:1.7;margin:0;">
+          {project.description}
+        </p>
+      </header>
+
+      <!-- Content grid -->
+      <div style="display:grid;gap:3rem;" class="detail-grid">
+
+        <!-- Main -->
+        <div style="display:flex;flex-direction:column;gap:2.5rem;">
+
+          {project.metrics && project.metrics.length > 0 && (
+            <section aria-labelledby="metrics-heading">
+              <h2 id="metrics-heading" style="font-family:var(--font-mono,monospace);font-size:0.65rem;color:var(--fg-2);letter-spacing:0.2em;text-transform:uppercase;margin:0 0 1rem;">
+                Key figures
+              </h2>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:0.75rem;">
+                {project.metrics.map((m) => <MetricBadge label={m.label} value={m.value} />)}
+              </div>
+            </section>
+          )}
+
+          <section aria-labelledby="highlights-heading">
+            <h2 id="highlights-heading" style="font-family:var(--font-mono,monospace);font-size:0.65rem;color:var(--fg-2);letter-spacing:0.2em;text-transform:uppercase;margin:0 0 1.25rem;">
+              What it does
+            </h2>
+            <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1rem;">
+              {project.highlights.map((h) => (
+                <li style="display:flex;gap:0.875rem;font-size:0.9375rem;color:var(--fg-2);line-height:1.65;padding:0.875rem;background:var(--bg-1);border-radius:0.5rem;border:1px solid var(--border);">
+                  <span style="color:var(--accent);flex-shrink:0;font-family:var(--font-mono,monospace);margin-top:0.05rem;">—</span>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+
+        <!-- Sidebar -->
+        <aside style="display:flex;flex-direction:column;gap:1.5rem;">
+          <div style="padding:1.25rem;border:1px solid var(--border);border-radius:0.75rem;background:var(--bg-1);display:flex;flex-direction:column;gap:1.5rem;">
+            <div>
+              <h2 style="font-family:var(--font-mono,monospace);font-size:0.65rem;color:var(--fg-2);letter-spacing:0.2em;text-transform:uppercase;margin:0 0 0.75rem;">
+                Tech stack
+              </h2>
+              <div style="display:flex;flex-wrap:wrap;gap:0.375rem;">
+                {project.tech.map((t) => (
+                  <span style="font-size:0.72rem;font-family:var(--font-mono,monospace);padding:0.25rem 0.625rem;border-radius:0.375rem;background:var(--bg-2);border:1px solid var(--border);color:var(--fg-2);">{t}</span>
+                ))}
+              </div>
+            </div>
+
+            {project.links && project.links.length > 0 && (
+              <div>
+                <h2 style="font-family:var(--font-mono,monospace);font-size:0.65rem;color:var(--fg-2);letter-spacing:0.2em;text-transform:uppercase;margin:0 0 0.75rem;">
+                  Links
+                </h2>
+                <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                  {project.links.map((link) => {
+                    const isFill = link.href === '[[FILL]]' || link.href === '';
+                    return (
+                      <a
+                        href={isFill ? '#' : link.href}
+                        target={isFill ? undefined : '_blank'}
+                        rel={isFill ? undefined : 'noopener noreferrer'}
+                        aria-disabled={isFill ? 'true' : undefined}
+                        style={`display:flex;align-items:center;justify-content:space-between;padding:0.625rem 0.875rem;font-size:0.8rem;font-family:var(--font-mono,monospace);border:1px solid;border-radius:0.5rem;text-decoration:none;transition:all 0.15s;${isFill ? 'border-color:var(--border);color:var(--fg-2);opacity:0.5;cursor:not-allowed;pointer-events:none;' : 'border-color:var(--border-acc);color:var(--accent);'}`}
+                        onmouseover={isFill ? undefined : "this.style.background='var(--accent)';this.style.color='var(--bg)';this.style.borderColor='var(--accent)'"}
+                        onmouseout={isFill ? undefined : "this.style.background='transparent';this.style.color='var(--accent)';this.style.borderColor='var(--border-acc)'"}
+                      >
+                        {link.label}
+                        <span aria-hidden="true" style="font-size:0.7rem;opacity:0.7;">↗</span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  @media (min-width: 1024px) {
+    .detail-grid { grid-template-columns: 1fr 280px; }
+  }
+</style>

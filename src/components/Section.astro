@@ -1,0 +1,43 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  num?: string;
+  class?: string;
+}
+const { id, label, num, class: className = '' } = Astro.props;
+---
+
+<section
+  id={id}
+  aria-labelledby={`${id}-heading`}
+  style={`padding:var(--spacing-section,8rem) 0;${className}`}
+>
+  <div style="max-width:var(--max-width-content,1280px);margin:0 auto;padding:0 2rem;">
+
+    <!-- Section header -->
+    <div style="display:flex;align-items:flex-end;gap:1.5rem;margin-bottom:3.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);">
+      {num && (
+        <span
+          aria-hidden="true"
+          style="font-family:var(--font-mono,monospace);font-size:0.65rem;color:var(--accent);opacity:0.5;letter-spacing:0.2em;padding-bottom:0.2rem;"
+        >
+          {num}
+        </span>
+      )}
+      <h2
+        id={`${id}-heading`}
+        data-scramble
+        data-text={label}
+        style="font-size:clamp(1.5rem,3vw,2.5rem);font-weight:700;color:var(--fg);letter-spacing:-0.02em;margin:0;"
+      >
+        {label}
+      </h2>
+    </div>
+
+    <!-- Body -->
+    <div data-section-body>
+      <slot />
+    </div>
+  </div>
+</section>
