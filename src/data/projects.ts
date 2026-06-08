@@ -23,7 +23,7 @@ export const projects: Project[] = [
     category: 'Developer Tools',
     gradient: 'linear-gradient(135deg,#020a02 0%,#071407 55%,#030803 100%)',
     icon: '>_',
-    summary: 'Agentic terminal assistant published to PyPI: blocks 14 classes of destructive shell commands, corrects typos, and explains failures — all locally, all in real time.',
+    summary: 'A zsh/bash hook that intercepts every command before it runs. Blocks 14 classes of dangerous commands, corrects typos, and explains failures. Nothing leaves the machine.',
     description: 'A zsh/bash precheck/postcheck hook installed via PyPI. It intercepts every command before execution, runs 14 regex danger rules with zero network, corrects typos against your live $PATH, and on failure redacts secrets before asking Claude Haiku for a one-sentence fix. SQLite caches API responses for 7 days.',
     highlights: [
       '14 danger rules covering rm -rf, force-push, dd disk wipes, fork bombs, DROP TABLE, chmod 777 — zero latency, zero network',

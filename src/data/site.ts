@@ -2,7 +2,7 @@ export const site = {
   name: 'Amin Wafi',
   role: 'AI & Machine Learning Engineer',
   tagline:
-    'I train and ship AI systems with a focus on how they behave in deployment. Computer vision, on-device LLMs, and developer tools — one principle runs through all of it: the user\'s data should not leave the user\'s machine.',
+    'I build and ship AI systems. Computer vision, on-device LLMs, developer tools. One rule across all of it: the user\'s data stays on the user\'s machine.',
   subline: 'Final-year Computer Science · University of Derby · graduating 2026 · open to AI and software roles.',
   location: 'Athens, Greece · Open to relocation',
   email: 'aminwa@icloud.com',
@@ -25,6 +25,6 @@ export const site = {
   taglines: [
     'YOLOv8 · spaCy · on-device LLMs',
     'shell-pilot · screenshield · redact',
-    'GDPR + LLMs: a structural mismatch',
+    'Structural limits of GDPR in frontier LLM training',
   ],
 };
